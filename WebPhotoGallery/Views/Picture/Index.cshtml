@@ -42,23 +42,29 @@
                             }
 
                         }
-                        @if (User.IsInRole(Constant.User) && picture.ApplicationUserId == _singInManger.UserManager.GetUserId(User))
-                        {
+                        <div class="d-flex flex-row  gap-3">
                             @if (_singInManger.IsSignedIn(User))
                             {
-                                <form method="post" asp-action="DeletePicture">
 
-                                    <input type="hidden" name="id" value="@picture.Id" />
-                                    <div class="d-flex flex-row  gap-3">
+                                <a asp-action="ViewfullPicture" asp-route-id="@picture.Id" class="btn btn-primary">View</a>
+
+                            }
+                            @if (User.IsInRole(Constant.User) && picture.ApplicationUserId == _singInManger.UserManager.GetUserId(User))
+                            {
+                                @if (_singInManger.IsSignedIn(User))
+                                {
+                                    <form method="post" asp-action="DeletePicture">
+
+                                        @*<a asp-action="ViewfullPicture" asp-route-id="@picture.Id" class="btn btn-primary">View</a>*@
+                                        <input type="hidden" name="id" value="@picture.Id" />
                                         <a asp-action="EditPicture" asp-route-id="@picture.Id" class="btn btn-primary">Edit Picture</a>
-                                        <a asp-action="ViewfullPicture" asp-route-id="@picture.Id" class="btn btn-primary">View</a>
                                         <button type="submit" class="btn btn-danger mr-2">Delete</button>
 
-                                    </div>
-                                </form>
-                            }
+                                    </form>
+                                }
 
-                        }
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
