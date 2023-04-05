@@ -1,0 +1,48 @@
+﻿@model WebPhotoGallery.Models.Pictures
+<h1> Update Picture</h1>
+<form method="post" action="EditPicture" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ImageUrl" />
+
+    <div class="form-group row">
+
+        <div class="col-1">
+            <label asp-for="ImageUrl"></label>
+        </div>
+        <div class="col-4">
+            <input type="file" asp-for="ImageUrl" class="form-control" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+
+            <img src="@Html.DisplayFor(m=>Model.ImageUrl)" width="150px" height="100px" />
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Name"></label>
+        </div>
+        <div class="col-4">
+            <input textmode="Date" class="form-control" asp-for="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Description"></label>
+        </div>
+        <div class="col-4">
+            <textarea class="form-control" asp-for="Description"> </textarea>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Update" />
+        <a asp-action="Index" class="btn btn-danger">Back</a>
+    </div>
+</form>

@@ -1,0 +1,21 @@
+﻿@model WebPhotoGallery.Models.UserStatusVM
+@using (Html.BeginForm("UpdateUser", "Administrator", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.Id)
+    @if (Model.Status == true)
+    {
+        <select name="Status">
+            <option value="true">Approve</option>
+            <option value="false">Decline</option>
+        </select>
+    }
+    @if (Model.Status == false)
+    {
+        <select name="Status">
+            <option value="false">Decline</option>
+            <option value="true">Approve</option>
+        </select>
+    }
+
+    <button type="submit">Save</button>
+}

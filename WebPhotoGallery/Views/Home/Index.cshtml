@@ -1,0 +1,106 @@
+﻿@model WebPhotoGallery.Models.HomePageDetailsVM
+
+<!DOCTYPE html>
+<html>
+
+	<title>Home Page</title>
+	<style>
+		.container {
+		/*	max-width: 1000px;*/
+			margin: 0 auto;
+			padding: 20px;
+			width:100%;
+
+		}
+
+		.row {
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 -10px;
+			align-items:center;
+			height:500px;
+		}
+
+		.col-md-4 {
+			flex: 0 0 calc(33.33% - 20px);
+			margin: 0 10px;
+		}
+
+		.card {
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			margin-bottom: 20px;
+			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+			transition: box-shadow 0.3s ease-in-out;
+		}
+
+			.card:hover {
+				box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+			}
+
+		.card-title {
+			font-size: 20px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.card-text {
+			font-size: 16px;
+			line-height: 1.5;
+		}
+
+		.card ul {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+		}
+
+			.card ul li {
+				font-size: 14px;
+				line-height: 1.5;
+				padding: 5px 0;
+			}
+	</style>
+
+	<div class="container">
+		<div class="row bg-primary">
+			<div class="col-md-4 " >
+			<div class="card" style="height:400px; ">
+					<div class="card-body">
+						<h5 class="card-title">New Pictures</h5>
+					<p class="card-text">Details:</p>
+						<ul>
+							<li>Number of pictures uploaded today: @Model.TodayUploadPicture</li>
+							<li>Total number of pictures on the site: @Model.TotalPicture</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+			<div class="card" style="height:400px">
+					<div class="card-body">
+						<h5 class="card-title">New Users</h5>
+						<p class="card-text">Details:</p>
+						<ul>
+							<li>Number of new users registered today: @Model.TodayRegisterUser</li>
+							<li>Total number of registered users: @Model.TotalRegisterUser</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+			<div class="card" style="height:400px">
+					<div class="card-body">
+						<h5 class="card-title">Total Users</h5>
+						<p class="card-text"></p>
+						<p class="card-text">Details:</p>
+						<ul>
+							<li>Total number of registered users: @Model.TotalRegisterUser</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</html>

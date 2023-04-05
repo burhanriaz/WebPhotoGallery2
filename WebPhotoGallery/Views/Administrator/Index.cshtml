@@ -1,0 +1,94 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using WebPhotoGallery.Helper;
+@*@model IEnumerable<ApplicationUser>*@
+@model cloudscribe.Pagination.Models.PagedResult<ApplicationUser>
+@{
+    ViewData["Controler"] = "Administrator";
+    ViewData["Action"] = "Index";
+
+}
+
+<style>
+    .approved {
+        color: green;
+    }
+
+    .declined {
+        color: red;
+    }
+</style>
+<form asp-action="Index" method="get">
+    <div>
+        <p>
+            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" />
+            <input type="submit" class="btn btn-info" value="Search" />
+            <a asp-action="Index"> | Remove Filter</a>
+        </p>
+    </div>
+</form>
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Users List</h2>
+    </div>
+    <div class="col-12">
+
+        <table class="table table-striped  border">
+            <tr class="table-info">
+                @*   <th class="col-auto">
+                Id
+                </th>*@
+                <th class="col-auto">
+                    <a asp-action="Index"
+                       asp-route-SortOrder="@ViewBag.NameSortParam"> First Name</a>
+
+                </th>
+                <th class="col-auto">
+                    Last Name
+                </th>
+                <th class="col-auto">
+                    User Name
+                </th>@* asp-route-PageNumber=@Model.PageNumber>User Name*@
+                <th class="col-auto">
+                    Email Address
+                </th>
+                <th class="col-auto">
+                    Phone Number
+                </th>
+                <th class="col-auto">
+                    Status
+                </th>
+                <th class="col-auto">
+                    Action
+                </th>
+            </tr>
+            @foreach (var user in Model.Data)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m=>user.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m=>user.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m=>user.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m=>user.Email)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(m=>user.PhoneNumber)
+                    <td class="@(user.EmailConfirmed ? "approved" : "declined")">
+                            @(user.EmailConfirmed ? "Approved" : "Declined")
+                    </td>
+                    <td>
+                            @Html.Partial("_UserStatusPartial", new UserStatusVM { Id = user.Id,Status= user.EmailConfirmed })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

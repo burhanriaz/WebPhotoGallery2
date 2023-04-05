@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using WebPhotoGallery.Helper;
+@model IEnumerable<WebPhotoGallery.Models.Pictures>
+@inject SignInManager<ApplicationUser> _singInManger;
+@inject RoleManager<IdentityRole> _roleManager;
+<style>
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: box-shadow 0.3s ease-in-out;
+    }
+</style>
+<div class="row d-flex flex-row">
+    <a asp-action="UploadPicture" asp-controller="Picture" class="btn btn-primary">Upload New Picture</a>
+
+    @if (Model.Count() > 0)
+    {
+        @foreach (var picture in Model)
+        {
+            <div class="col-sm-4 " style="margin-top:25px">
+                @*<div class="card mb-4">*@
+                <div class="card" style="height:450px;">
+                    <img src="@Url.Content(picture.ImageUrl)" @* width="200px"*@ height="300px" />
+                    <div class="card-body">
+                        <h5 class="card-title">@picture.Name</h5>
+                        <p class="card-text">@picture.Description</p>
+                        @if (User.IsInRole(Constant.Admin))
+                        {
+                            @if (_singInManger.IsSignedIn(User))
+                            {
+                                <form method="post" asp-action="DeletePicture">
+
+                                    <input type="hidden" name="id" value="@picture.Id" />
+                                    <div class="d-flex flex-row  gap-3">
+                                        <a asp-action="ViewfullPicture" asp-route-id="@picture.Id" class="btn btn-primary">View</a>
+                                        <a asp-action="EditPicture" asp-route-id="@picture.Id" class="btn btn-primary">Edit Picture</a>
+                                        <button type="submit" class="btn btn-danger mr-2">Delete</button>
+                                    </div>
+                                </form>
+                            }
+
+                        }
+                        @if (User.IsInRole(Constant.User) && picture.ApplicationUserId == _singInManger.UserManager.GetUserId(User))
+                        {
+                            @if (_singInManger.IsSignedIn(User))
+                            {
+                                <form method="post" asp-action="DeletePicture">
+
+                                    <input type="hidden" name="id" value="@picture.Id" />
+                                    <div class="d-flex flex-row  gap-3">
+                                        <a asp-action="EditPicture" asp-route-id="@picture.Id" class="btn btn-primary">Edit Picture</a>
+                                        <a asp-action="ViewfullPicture" asp-route-id="@picture.Id" class="btn btn-primary">View</a>
+                                        <button type="submit" class="btn btn-danger mr-2">Delete</button>
+
+                                    </div>
+                                </form>
+                            }
+
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

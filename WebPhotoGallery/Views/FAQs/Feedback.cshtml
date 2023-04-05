@@ -1,0 +1,117 @@
+﻿@using WebPhotoGallery.Helper;
+@model IEnumerable<FAQS>
+@{
+    ViewData["Title"] = "Feedback Questions & Answers";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+    }
+
+    h1, h2 {
+        color: #555;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    h2 {
+        margin-top: 50px;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #444;
+        margin: 10px 0;
+    }
+
+    .faq-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"], input[type="email"], input[type="password"], textarea {
+        padding: 10px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        input[type="submit"].primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+</style>
+
+<div class="faq-container">
+
+    <a asp-action="PostFeedback" asp-controller="FAQs" class="btn btn-primary">Ask A Question</a>
+
+    <h1>Feedback Questions & Answers</h1>
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+
+            <h2>@item.Question</h2>
+            if (item.Answer != null)
+            {
+                <p><h3>Answer:</h3>@item.Answer</p>
+
+            }
+            else if (User.IsInRole(Constant.Admin))
+            {
+                <form method="post" asp-action="DeleteQuestion">
+                    <div class="d-flex flex-row  gap-3">
+                        <a asp-action="PostAnswerFeedback" asp-route-id="@item.Id" asp-controller="FAQs" class="btn btn-primary">Answer</a>
+                        <button type="submit" asp-route-id="@item.Id" asp-action="DeleteQuestion" asp-controller="FAQs" class="btn btn-danger mr-2">Delete</button>
+                    </div>
+                </form>
+            }
+        }
+    }
+</div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    @if (ViewBag.NotFound != null)
+    {
+        <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Error</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                @ViewBag.NotFound
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.toast').toast('show');
+        });
+    </script>
+    }

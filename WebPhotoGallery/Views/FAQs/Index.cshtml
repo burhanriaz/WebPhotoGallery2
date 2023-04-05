@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "FAQs";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+    }
+
+    h1, h2 {
+        color: #555;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    h2 {
+        margin-top: 50px;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #444;
+        margin: 10px 0;
+    }
+
+    .faq-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"], input[type="email"], input[type="password"], textarea {
+        padding: 10px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        input[type="submit"].primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+</style>
+
+<div class="faq-container">
+
+    <a asp-action="PostFeedback" asp-controller="FAQs" class="btn btn-primary">Ask A Question</a>
+ 
+    <h1>Frequently Asked Questions</h1>
+
+    <h2>How to view the image files?</h2>
+    <p>In order to view the image files, you need to register as a user first. Once you have registered, you can log in to your account and view the uploaded images.</p>
+
+    <h2>How to register with the site?</h2>
+    <p>To register with the site, you need to provide your first name, last name, username, email, and password. Once you have submitted the registration form, you will receive an email on the email address you provided during registration.</p>
+
+    <h2>How to upload the picture file?</h2>
+    <p>To upload a picture file, you need to log in to your account and click on the "View Profile" tab. From there, you can click on "Upload Picture" and provide a name and description for the picture.</p>
+
+    <h2>How to post a Query?</h2>
+    <p>To post a query, you can click on the "FAQs" tab and submit your question in the form provided.</p>
+
+    <h2>Is there any limitation in uploading files?</h2>
+    <p>Yes, each registered user can only upload up to a maximum of 35 images. If you try to upload more than 35 images, you will receive an error message prompting you to delete one of the files to upload a new one.</p>
+
+
+</div>

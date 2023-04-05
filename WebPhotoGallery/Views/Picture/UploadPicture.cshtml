@@ -1,0 +1,140 @@
+﻿@model PictureVM
+@{
+    ViewData["Title"] = "Upload Picture";
+}
+<style>
+    /* Set default font family and size */
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    /* Add a background color and image to the header */
+    header {
+        background-color: #f8f8f8;
+        background-image: url('header-image.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 200px;
+    }
+
+        /* Center the logo in the header */
+        header img {
+            display: block;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+    /* Add some padding to the main content area */
+    main {
+        padding: 20px;
+    }
+
+    /* Style the heading tags */
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    /* Style the links */
+    a {
+        color: #ff69b4;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    /* Add a border and padding to the images */
+    img {
+        border: 1px solid #ccc;
+        padding: 5px;
+        max-width: 100%;
+    }
+
+    /* Center the form in the page */
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Style the form fields */
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"], textarea {
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        margin: 20px 0;
+        padding: 10px;
+        border: none;
+        background-color: #ff69b4;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #ff1493;
+        }
+
+</style>
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" asp-action="UploadPicture" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="ImageUrl"></label>
+        <input asp-for="ImageUrl" type="file" class="form-control" accept=".jpg,.jpeg,.png" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload Picture</button>
+</form>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    @if (ViewBag.LimitExceeded != null)
+    {
+        <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Error</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                @ViewBag.LimitExceeded
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+        </script>
+}
