@@ -81,7 +81,7 @@ namespace WebPhotoGallery.Controllers
             var result = await _UserManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                EmailTest.SendEmail(user.Email, model.Status);
+                EmailService.SendEmail(user.Email, model.Status);
                 ViewBag.Messagesuccess = Constant.Messagesuccess;
                 return RedirectToAction("Index", "Administrator");
             }
