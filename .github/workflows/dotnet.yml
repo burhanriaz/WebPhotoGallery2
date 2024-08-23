@@ -23,6 +23,7 @@ jobs:
 
       - name: Publish
         run: dotnet publish --configuration Release --output ./publish
+
         
       - name: Test with .NET
         run: dotnet test
@@ -34,7 +35,7 @@ jobs:
           server-computer-name: win8117.site4now.net
           server-username: aramsaid-001
           server-password: ${{ secrets.SERVER_PASSWORD }}  # Store the password securely as a secret in GitHub
-          source-path: ./publish
+          source-path: ./WebPhotoGallery2/WebPhotoGallery/publish
 
       - name: Migrate Database
         run: |
