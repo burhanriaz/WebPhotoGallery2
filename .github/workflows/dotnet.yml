@@ -27,6 +27,8 @@ jobs:
         
       - name: Test with .NET
         run: dotnet test
+      - name: List Published Files
+        run: ls -la ./publish
 
       - name: Deploy to Simply        
         uses: talunzhang/auto-web-deploy@v1.0.1
