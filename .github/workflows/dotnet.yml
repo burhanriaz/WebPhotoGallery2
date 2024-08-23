@@ -32,4 +32,4 @@ jobs:
           server-computer-name: https://win8117.site4now.net:8172
           server-username: aramsaid-001
           server-password: Nodlays@123
-          source-path: 'D:\a\WebPhotoGallery2\WebPhotoGallery2\WebPhotoGallery2\WebPhotoGallery\publish'
+          source-path: './WebPhotoGallery2/WebPhotoGallery2/WebPhotoGallery2/WebPhotoGallery/publish'
