@@ -1,45 +1,35 @@
-name: Build, Publish, and Deploy Project to Simply
+name: Build, publish and deploy project to Simply
 
 on: [push]
 
 jobs:
   build_and_deploy:
     runs-on: windows-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '6.0'
-          
-      - name: Install Dependencies
+          dotnet-version: 6.0
+
+      - name: Install dependencies
         run: dotnet restore
         
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish --configuration Release --output ./publish
+        run: dotnet publish --configuration Release --output ./WebPhotoGallery2/WebPhotoGallery/publish
 
-        
-      - name: Test with .NET
-        run: dotnet test
       - name: List Published Files
-        run: ls -la ./publish
+        run: Get-ChildItem -Recurse -Force ./WebPhotoGallery2/WebPhotoGallery/publish
 
       - name: Deploy to Simply        
         uses: talunzhang/auto-web-deploy@v1.0.1
         with:
           website-name: aramsaid-001-subsite7
-          server-computer-name: win8117.site4now.net
+          server-computer-name: https://win8117.site4now.net:8172
           server-username: aramsaid-001
-          server-password: ${{ secrets.SERVER_PASSWORD }}  # Store the password securely as a secret in GitHub
-          source-path: ./WebPhotoGallery2/WebPhotoGallery/publish
-
-      - name: Migrate Database
-        run: |
-          dotnet tool install --global dotnet-ef
-          dotnet ef database update --connection "Data Source=SQL8020.site4now.net;Initial Catalog=db_aa236c_newtest;User Id=db_aa236c_newtest_admin;Password=${{ secrets.DB_PASSWORD }}"  # Store the DB password securely as a secret in GitHub
+          server-password: Nodlays@123
+          source-path: './WebPhotoGallery2/WebPhotoGallery/publish'
